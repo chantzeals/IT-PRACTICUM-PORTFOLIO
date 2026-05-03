@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Randz Andrea De Castro — IT Practicum Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --ink:       #080a10;
+      --ink2:      #0e1120;
+      --ink3:      #151929;
+      --ink4:      #1c2236;
+      --rule:      rgba(255,255,255,0.06);
+      --gold:      #c9a84c;
+      --gold2:     #e8c97a;
+      --goldsoft:  rgba(201,168,76,0.1);
+      --goldglow:  rgba(201,168,76,0.2);
+      --text:      #edeef5;
+      --text2:     #a8b0c2;
+      --muted:     #5a6480;
+      --dim:       #2e3650;
+      --nav-h:     64px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ink);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── GRAIN OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+      background: rgba(8,10,16,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--rule);
+      z-index: 100;
+      transition: background 0.3s;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links {
+      display: flex; gap: 32px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -3px; left: 0; right: 0;
+      height: 1px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.25s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--muted);
+      transition: all 0.25s;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed; top: var(--nav-h); left: 0; right: 0;
+      background: rgba(8,10,16,0.97);
+      border-bottom: 1px solid var(--rule);
+      padding: 24px 32px;
+      z-index: 99;
+      flex-direction: column; gap: 20px;
+      backdrop-filter: blur(12px);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text2); text-decoration: none;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: calc(var(--nav-h) + 80px) 0 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle grid background */
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+
+    /* Glow orbs */
+    #hero::after {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+      top: 10%; right: -100px;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+      position: relative;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block; width: 32px; height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 8px;
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+    .hero-name em {
+      font-style: italic;
+      color: var(--gold2);
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.2rem, 3vw, 1.9rem);
+      font-weight: 300;
+      color: var(--text2);
+      margin-bottom: 28px;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+
+    .hero-desc {
+      max-width: 560px;
+      font-size: 0.92rem;
+      color: var(--text2);
+      line-height: 1.8;
+      margin-bottom: 40px;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .hero-meta {
+      display: flex; flex-wrap: wrap; gap: 24px;
+      margin-bottom: 40px;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+    .hero-meta-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.78rem; color: var(--muted);
+    }
+    .hero-meta-item .icon { color: var(--gold); font-size: 0.85rem; }
+
+    .hero-ctas {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.5s ease both;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px;
+      background: var(--gold);
+      color: #0a0c12;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      background: var(--gold2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--goldglow);
+    }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px;
+      background: transparent;
+      color: var(--text2);
+      border: 1px solid var(--dim);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold2);
+      transform: translateY(-2px);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px; left: 48px;
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--dim);
+      animation: fadeUp 0.8s 0.7s ease both;
+    }
+    .scroll-line {
+      width: 40px; height: 1px;
+      background: var(--dim);
+      position: relative; overflow: hidden;
+    }
+    .scroll-line::after {
+      content: '';
+      position: absolute; top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: var(--gold);
+      animation: scanline 2s 1s infinite;
+    }
+    @keyframes scanline { to { left: 200%; } }
+
+    /* ── SECTION SHARED ── */
+    .section-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 48px;
+    }
+
+    .section-header {
+      display: flex; align-items: flex-end; gap: 20px;
+      margin-bottom: 60px;
+    }
+    .section-eyebrow {
+      font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--text);
+    }
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--dim), transparent);
+      margin-bottom: 12px;
+    }
+
+    /* divider between sections */
+    .divider {
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--rule), transparent);
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--ink); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 0.92rem;
+      color: var(--text2);
+      margin-bottom: 16px;
+      line-height: 1.85;
+    }
+
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 20px; margin-top: 36px;
+    }
+    .stat-card {
+      background: var(--ink2);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 20px;
+      position: relative; overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .stat-card:hover { border-color: rgba(201,168,76,0.2); transform: translateY(-3px); }
+    .stat-card:hover::before { opacity: 1; }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .about-right {}
+    .info-table { width: 100%; }
+    .info-row {
+      display: flex;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--rule);
+      gap: 16px;
+    }
+    .info-row:first-child { border-top: 1px solid var(--rule); }
+    .info-key {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      min-width: 110px;
+      padding-top: 2px;
+    }
+    .info-val {
+      font-size: 0.85rem;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+
+    /* ── COMPANY ── */
+    #company { background: var(--ink2); }
+
+    .company-card {
+      background: var(--ink3);
+      border: 1px solid var(--rule);
+      border-radius: 14px;
+      padding: 48px;
+      position: relative; overflow: hidden;
+    }
+    .company-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--gold), transparent);
+    }
+    .company-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .company-industry {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 32px;
+    }
+    .company-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .company-detail {}
+    .company-detail-key {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+    .company-detail-val {
+      font-size: 0.85rem;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    /* internship timeline strip */
+    .internship-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 48px;
+    }
+    .strip-card {
+      background: var(--ink4);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 20px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .strip-card:hover { border-color: rgba(201,168,76,0.2); transform: translateY(-2px); }
+    .strip-icon { font-size: 1.3rem; margin-bottom: 10px; }
+    .strip-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .strip-val {
+      font-size: 0.85rem;
+      color: var(--text2);
+      font-weight: 500;
+    }
+
+    /* ── GOALS ── */
+    #goals { background: var(--ink); }
+
+    .goals-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .goal-card {
+      background: var(--ink2);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      padding: 32px;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .goal-card:hover {
+      border-color: rgba(201,168,76,0.18);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+    .goal-card-header {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 20px;
+    }
+    .goal-icon {
+      width: 38px; height: 38px;
+      background: var(--goldsoft);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .goal-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .goal-list {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .goal-list li {
+      font-size: 0.83rem;
+      color: var(--text2);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.6;
+    }
+    .goal-list li::before {
+      content: '';
+      position: absolute; left: 0; top: 9px;
+      width: 5px; height: 1px;
+      background: var(--gold);
+    }
+
+    /* ── RESPONSIBILITIES ── */
+    #tasks { background: var(--ink2); }
+
+    .tasks-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+    .task-card {
+      background: var(--ink3);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      padding: 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .task-card:hover { border-color: rgba(201,168,76,0.18); transform: translateY(-2px); }
+    .task-card-icon { font-size: 1.4rem; margin-bottom: 14px; }
+    .task-card-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--gold2);
+      margin-bottom: 10px;
+    }
+    .task-card-desc {
+      font-size: 0.8rem;
+      color: var(--text2);
+      line-height: 1.7;
+    }
+
+    .tools-section {}
+    .tools-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+    .tools-grid {
+      display: flex; flex-wrap: wrap; gap: 10px;
+    }
+    .tool-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--ink4);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      padding: 7px 14px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text2);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .tool-tag:hover { border-color: rgba(201,168,76,0.25); color: var(--gold2); }
+    .tool-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--ink); }
+
+    .project-card {
+      background: var(--ink2);
+      border: 1px solid var(--rule);
+      border-radius: 14px;
+      padding: 40px;
+      margin-bottom: 20px;
+      position: relative; overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .project-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold2), transparent);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .project-card:hover { border-color: rgba(201,168,76,0.18); transform: translateY(-2px); }
+    .project-card:hover::after { opacity: 1; }
+    .project-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--dim);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .project-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .project-output-label {
+      display: inline-block;
+      font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold);
+      background: var(--goldsoft);
+      border: 1px solid rgba(201,168,76,0.15);
+      padding: 3px 10px; border-radius: 3px;
+      margin-bottom: 16px;
+    }
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--text2);
+      line-height: 1.8;
+      max-width: 700px;
+    }
+    .project-output {
+      margin-top: 16px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+    .project-output strong { color: var(--gold); font-style: normal; }
+    .nda-note {
+      display: flex; align-items: flex-start; gap: 10px;
+      background: rgba(201,168,76,0.05);
+      border: 1px solid rgba(201,168,76,0.12);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 24px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .nda-note::before { content: '🔒'; font-size: 0.9rem; margin-top: 1px; }
+
+    /* ── REFLECTIONS ── */
+    #reflections { background: var(--ink2); }
+
+    .reflections-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+    }
+    .reflection-card {
+      background: var(--ink3);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      padding: 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .reflection-card:hover { border-color: rgba(201,168,76,0.18); transform: translateY(-2px); }
+    .reflection-type {
+      font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .reflection-type::before {
+      content: ''; display: block;
+      width: 20px; height: 1px; background: var(--gold);
+    }
+    .reflection-list {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .reflection-list li {
+      font-size: 0.82rem;
+      color: var(--text2);
+      line-height: 1.65;
+      padding-left: 14px;
+      position: relative;
+    }
+    .reflection-list li::before {
+      content: '';
+      position: absolute; left: 0; top: 10px;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    /* ── JOURNAL ── */
+    #journal { background: var(--ink); }
+
+    .journal-timeline {
+      position: relative;
+      padding-left: 36px;
+    }
+    .journal-timeline::before {
+      content: '';
+      position: absolute; top: 0; bottom: 0; left: 7px;
+      width: 1px;
+      background: linear-gradient(180deg, var(--gold), var(--dim) 80%, transparent);
+    }
+
+    .journal-entry {
+      position: relative;
+      margin-bottom: 32px;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .journal-entry.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .journal-dot {
+      position: absolute; left: -32px; top: 5px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--ink);
+      border: 2px solid var(--gold);
+      transition: background 0.2s;
+    }
+    .journal-entry:hover .journal-dot { background: var(--gold); }
+
+    .journal-week {
+      font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 6px;
+    }
+    .journal-body {
+      background: var(--ink2);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 20px 24px;
+      transition: border-color 0.2s;
+    }
+    .journal-entry:hover .journal-body { border-color: rgba(201,168,76,0.15); }
+    .journal-activities {
+      font-size: 0.82rem;
+      color: var(--text2);
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+    .journal-lesson {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-style: italic;
+      padding-top: 10px;
+      border-top: 1px solid var(--rule);
+    }
+    .journal-lesson strong { color: var(--gold); font-style: normal; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--ink2); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    .skills-col-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 24px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .skills-col-title::after {
+      content: ''; flex: 1;
+      height: 1px; background: var(--dim);
+    }
+
+    .skill-item {
+      margin-bottom: 20px;
+    }
+    .skill-header {
+      display: flex; justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .skill-name {
+      font-size: 0.8rem; font-weight: 500;
+      color: var(--text2);
+    }
+    .skill-pct { font-size: 0.72rem; color: var(--gold); }
+    .skill-bar {
+      height: 3px;
+      background: var(--dim);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .skill-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      border-radius: 2px;
+      width: 0%;
+      transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .soft-skills-list {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .soft-skill {
+      display: flex; align-items: flex-start; gap: 14px;
+      background: var(--ink3);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 16px 18px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .soft-skill:hover { border-color: rgba(201,168,76,0.15); transform: translateX(4px); }
+    .soft-skill-icon { font-size: 1.1rem; margin-top: 1px; flex-shrink: 0; }
+    .soft-skill-name {
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--text); margin-bottom: 2px;
+    }
+    .soft-skill-desc { font-size: 0.76rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── DOCUMENTATION ── */
+    #documentation { background: var(--ink); }
+
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .doc-card {
+      background: var(--ink2);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 24px;
+      display: flex; align-items: flex-start; gap: 14px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .doc-card:hover { border-color: rgba(201,168,76,0.18); transform: translateY(-2px); }
+    .doc-icon {
+      width: 36px; height: 36px;
+      background: var(--goldsoft);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .doc-name { font-size: 0.82rem; font-weight: 500; color: var(--text); line-height: 1.4; }
+    .doc-type { font-size: 0.68rem; color: var(--muted); margin-top: 3px; }
+
+    /* ── CONCLUSION ── */
+    #conclusion { background: var(--ink2); }
+
+    .conclusion-body {
+      max-width: 760px;
+    }
+    .conclusion-body p {
+      font-size: 0.92rem;
+      color: var(--text2);
+      line-height: 1.9;
+      margin-bottom: 20px;
+    }
+    .conclusion-quote {
+      border-left: 2px solid var(--gold);
+      padding: 20px 28px;
+      margin: 36px 0;
+      background: var(--ink3);
+      border-radius: 0 10px 10px 0;
+    }
+    .conclusion-quote p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--text);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* ── FUTURE PLANS ── */
+    #future { background: var(--ink); }
+
+    .future-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .future-card {
+      background: var(--ink2);
+      border: 1px solid var(--rule);
+      border-radius: 14px;
+      padding: 36px;
+      transition: border-color 0.25s, transform 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .future-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .future-card:hover { border-color: rgba(201,168,76,0.2); transform: translateY(-3px); }
+    .future-card:hover::before { opacity: 1; }
+    .future-card-icon { font-size: 1.6rem; margin-bottom: 16px; }
+    .future-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 600;
+      color: var(--text); margin-bottom: 16px;
+    }
+    .future-list {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .future-list li {
+      font-size: 0.83rem;
+      color: var(--text2);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.65;
+    }
+    .future-list li::before {
+      content: '→';
+      position: absolute; left: 0;
+      color: var(--gold);
+      font-size: 0.75rem;
+    }
+
+    .certs-row {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-top: 12px;
+    }
+    .cert-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--goldsoft);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--gold2);
+    }
+
+    /* ── CONTACT / FOOTER ── */
+    #contact {
+      background: var(--ink2);
+      border-top: 1px solid var(--rule);
+    }
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .contact-left {}
+    .contact-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .contact-sub {
+      font-size: 0.88rem;
+      color: var(--text2);
+      margin-bottom: 32px;
+    }
+    .contact-links {
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .contact-link {
+      display: flex; align-items: center; gap: 14px;
+      text-decoration: none;
+      color: var(--text2);
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .contact-link:hover { color: var(--gold2); }
+    .contact-link-icon {
+      width: 36px; height: 36px;
+      background: var(--ink3);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .contact-link:hover .contact-link-icon {
+      border-color: rgba(201,168,76,0.25);
+      background: var(--goldsoft);
+    }
+
+    .contact-right {}
+    .contact-card {
+      background: var(--ink3);
+      border: 1px solid var(--rule);
+      border-radius: 14px;
+      padding: 36px;
+    }
+    .contact-card-label {
+      font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
+    }
+    .contact-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 600;
+      color: var(--text); margin-bottom: 4px;
+    }
+    .contact-card-role {
+      font-size: 0.82rem; color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .contact-card-divider { height: 1px; background: var(--rule); margin-bottom: 20px; }
+    .contact-card-detail {
+      display: flex; gap: 10px;
+      margin-bottom: 10px;
+      font-size: 0.8rem; color: var(--text2);
+    }
+    .contact-card-detail span:first-child { color: var(--gold); min-width: 20px; }
+
+    footer {
+      text-align: center;
+      padding: 28px 48px;
+      border-top: 1px solid var(--rule);
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+    footer span { color: var(--gold); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero-inner { padding: 0 24px; }
+      .hero-scroll { left: 24px; }
+      .section-wrap { padding: 72px 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .goals-grid { grid-template-columns: 1fr; }
+      .tasks-grid { grid-template-columns: 1fr 1fr; }
+      .reflections-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .future-grid { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; gap: 36px; }
+    }
+    @media (max-width: 600px) {
+      .tasks-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      .hero-name { font-size: 2.6rem; }
+    }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--ink); }
+    ::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Randz <span>Andrea</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#company">Company</a></li>
+    <li><a href="#tasks">Tasks</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#reflections">Reflections</a></li>
+    <li><a href="#journal">Journal</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#future">Future</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#company" onclick="closeMenu()">Company</a>
+  <a href="#tasks" onclick="closeMenu()">Tasks</a>
+  <a href="#projects" onclick="closeMenu()">Projects</a>
+  <a href="#reflections" onclick="closeMenu()">Reflections</a>
+  <a href="#journal" onclick="closeMenu()">Journal</a>
+  <a href="#skills" onclick="closeMenu()">Skills</a>
+  <a href="#future" onclick="closeMenu()">Future Plans</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">IT Practicum Portfolio · 2026</div>
+    <h1 class="hero-name">Randz <em>Andrea</em><br/>De Castro</h1>
+    <div class="hero-title">BS Information Technology · PwC Business Services PH</div>
+    <p class="hero-desc">
+      A fourth-year IT student with hands-on experience in web development using React and PHP, networking, and cybersecurity. Three-year student leader, now building real-world expertise in IT audit, asset management, and infrastructure at PwC BSP.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><span class="icon">📍</span> PUP The Hub & Ortigas, Manila</div>
+      <div class="hero-meta-item"><span class="icon">🏢</span> Office Technology & Transformation</div>
+      <div class="hero-meta-item"><span class="icon">📅</span> Jan 15 – Apr 24, 2026</div>
+    </div>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">View Projects →</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll to explore
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<div class="divider"></div>
+<section id="about">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-eyebrow">01 — About</div>
+        <h2 class="section-title">Personal Information</h2>
+      </div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I am Randz, a fourth-year Information Technology student with practical experience in coding and developing web systems using React and PHP. I also have hands-on knowledge and experience in networking and cybersecurity, which has strengthened my ability as an aspiring IT professional.</p>
+        <p>For the past three years, I have been an active student leader, serving the college community with dedication and passion. Balancing my technical expertise with leadership responsibilities has allowed me to grow both as a developer and as a community leader, preparing me to contribute meaningfully in professional and organizational settings.</p>
+
+        <div class="about-stats">
+          <div class="stat-card">
+            <div class="stat-num">15</div>
+            <div class="stat-label">Weeks of Internship</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">3+</div>
+            <div class="stat-label">Years of Leadership</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">2</div>
+            <div class="stat-label">Major Projects</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">10+</div>
+            <div class="stat-label">Trainings Completed</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-right reveal">
+        <div class="info-table">
+          <div class="info-row"><span class="info-key">Full Name</span><span class="info-val">Randz Andrea D. De Castro</span></div>
+          <div class="info-row"><span class="info-key">Course</span><span class="info-val">BS Information Technology</span></div>
+          <div class="info-row"><span class="info-key">Email</span><span class="info-val">randz_andrea_decastro@dlsl.edu.ph</span></div>
+          <div class="info-row"><span class="info-key">Contact</span><span class="info-val">09466144422</span></div>
+          <div class="info-row"><span class="info-key">Company</span><span class="info-val">PwC Business Services Philippines Co. Ltd.</span></div>
+          <div class="info-row"><span class="info-key">Department</span><span class="info-val">Office Technology & Transformation</span></div>
+          <div class="info-row"><span class="info-key">Supervisor</span><span class="info-val">Mike Ivan Nava</span></div>
+          <div class="info-row"><span class="info-key">Work Setup</span><span class="info-val">Face-to-face · PUP The Hub & Ortigas</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMPANY ══ -->
+<div class="divider"></div>
+<section id="company">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-eyebrow">02 — Company</div>
+        <h2 class="section-title">Company Profile</h2>
+      </div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="company-card reveal">
+      <div class="company-name">PricewaterhouseCoopers Business Services Philippines Co. Ltd.</div>
+      <div class="company-industry">Professional Services / Shared Services</div>
+      <div class="company-grid">
+        <div class="company-detail">
+          <div class="company-detail-key">Core Services</div>
+          <div class="company-detail-val">Assurance, Business Operations, Accounting & Finance, Process Innovation, Offshoring, Virtual Secondments</div>
+        </div>
+        <div class="company-detail">
+          <div class="company-detail-key">Background</div>
+          <div class="company-detail-val">Established 2015 · Member of PwC global network · Works with Isla Lipana & Co.</div>
+        </div>
+        <div class="company-detail">
+          <div class="company-detail-key">Organization</div>
+          <div class="company-detail-val">Divided into AOS (Assurance Offshore) and BOS (Business Operation Solutions)</div>
+        </div>
+        <div class="company-detail">
+          <div class="company-detail-key">Industry</div>
+          <div class="company-detail-val">Professional Services · Big Four Accounting Firm</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="internship-strip reveal">
+      <div class="strip-card">
+        <div class="strip-icon">📅</div>
+        <div class="strip-label">Start Date</div>
+        <div class="strip-val">January 15, 2026</div>
+      </div>
+      <div class="strip-card">
+        <div class="strip-icon">🏁</div>
+        <div class="strip-label">End Date</div>
+        <div class="strip-val">April 24, 2026</div>
+      </div>
+      <div class="strip-card">
+        <div class="strip-icon">🏢</div>
+        <div class="strip-label">Department</div>
+        <div class="strip-val">Office Technology & Transformation</div>
+      </div>
+      <div class="strip-card">
+        <div class="strip-icon">👤</div>
+        <div class="strip-label">Supervisor</div>
+        <div class="strip-val">Mike Ivan Nava</div>
+      </div>
+      <div class="strip-card">
+        <div class="strip-icon">📍</div>
+        <div class="strip-label">Work Setup</div>
+        <div class="strip-val">Face-to-face · PUP Hub & Ortigas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GOALS ══ -->
+<div class="divider"></div>
+<section id="goals">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-eyebrow">03 — Goals</div>
+        <h2 class="section-title">Goals & Objectives</h2>
+      </div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="goals-grid">
+      <div class="goal-card reveal">
+        <div class="goal-card-header">
+          <div class="goal-icon">🎯</div>
+          <div class="goal-card-title">Personal Learning Goals</div>
+        </div>
+        <ul class="goal-list">
+          <li>Deepen expertise in IT infrastructure management, particularly in conducting IT audits to ensure compliance and accuracy of asset records.</li>
+          <li>Strengthen skills in asset management, including inventory tracking, validation, and lifecycle management of IT equipment.</li>
+          <li>Gain practical experience in laptop hardware diagnostics and repair, enhancing technical troubleshooting capabilities.</li>
+          <li>Develop professional competencies in documentation, reporting, and workflow management to support organizational technology operations.</li>
+        </ul>
+      </div>
+      <div class="goal-card reveal">
+        <div class="goal-card-header">
+          <div class="goal-icon">🎓</div>
+          <div class="goal-card-title">Academic Alignment</div>
+        </div>
+        <ul class="goal-list">
+          <li>Apply theoretical knowledge from coursework in infrastructure and hardware systems to real-world practices.</li>
+          <li>Align internship tasks with academic outcomes in systems administration, IT asset management, and hardware support.</li>
+          <li>Bridge the gap between classroom learning and industry standards by experiencing how global solutions are implemented in practice.</li>
+          <li>Integrate internship experiences into reports and reflections that demonstrate applied learning and professional development.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TASKS ══ -->
+<div class="divider"></div>
+<section id="tasks">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-eyebrow">04 — Responsibilities</div>
+        <h2 class="section-title">Tasks & Responsibilities</h2>
+      </div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="tasks-grid">
+      <div class="task-card reveal">
+        <div class="task-card-icon">🔍</div>
+        <div class="task-card-title">IT Audit Support</div>
+        <div class="task-card-desc">Conducted routine checks on IT assets to ensure compliance with firm standards. Validated asset records against physical inventory and documented discrepancies.</div>
+      </div>
+      <div class="task-card reveal">
+        <div class="task-card-icon">📦</div>
+        <div class="task-card-title">Asset Management</div>
+        <div class="task-card-desc">Maintained and updated the asset tracker for laptops, peripherals, and equipment. Recorded acquisitions, disposals, and reassignment of devices and monitored lifecycle.</div>
+      </div>
+      <div class="task-card reveal">
+        <div class="task-card-icon">💻</div>
+        <div class="task-card-title">Hardware Diagnostics & Repair</div>
+        <div class="task-card-desc">Performed troubleshooting for hardware issues including battery, storage, memory, and connectivity. Reimaged laptops and installed necessary drivers and software.</div>
+      </div>
+      <div class="task-card reveal">
+        <div class="task-card-icon">🛠️</div>
+        <div class="task-card-title">Technical Support</div>
+        <div class="task-card-desc">Assisted employees and interns with IT-related concerns including hardware, software, and connectivity issues. Resolved urgent technical problems to maintain workflow efficiency.</div>
+      </div>
+      <div class="task-card reveal">
+        <div class="task-card-icon">📄</div>
+        <div class="task-card-title">Documentation & Reporting</div>
+        <div class="task-card-desc">Prepared daily accomplishment logs and reports. Coordinated with supervisors and team members for updates. Created newsletters for audit awareness.</div>
+      </div>
+      <div class="task-card reveal">
+        <div class="task-card-icon">🗂️</div>
+        <div class="task-card-title">Inventory & Validation</div>
+        <div class="task-card-desc">Conducted physical validation of IT assets in storage, confirming presence, condition, and labeling. Reconciled storage records with the central asset database.</div>
+      </div>
+    </div>
+
+    <div class="tools-section reveal">
+      <div class="tools-title">Tools & Technologies</div>
+      <div class="tools-grid">
+        <span class="tool-tag"><span class="tool-dot"></span>Windows 10/11</span>
+        <span class="tool-tag"><span class="tool-dot"></span>Microsoft Excel</span>
+        <span class="tool-tag"><span class="tool-dot"></span>Microsoft Teams</span>
+        <span class="tool-tag"><span class="tool-dot"></span>Outlook</span>
+        <span class="tool-tag"><span class="tool-dot"></span>MsForms</span>
+        <span class="tool-tag"><span class="tool-dot"></span>BIOS Utilities</span>
+        <span class="tool-tag"><span class="tool-dot"></span>Windows Deployment Services</span>
+        <span class="tool-tag"><span class="tool-dot"></span>Internal Asset Trackers</span>
+        <span class="tool-tag"><span class="tool-dot"></span>Audit Templates</span>
+        <span class="tool-tag"><span class="tool-dot"></span>Compliance Checklists</span>
+        <span class="tool-tag"><span class="tool-dot"></span>Shared Drives</span>
+        <span class="tool-tag"><span class="tool-dot"></span>Reimaging Software</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROJECTS ══ -->
+<div class="divider"></div>
+<section id="projects">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-eyebrow">05 — Projects</div>
+        <h2 class="section-title">Projects & Outputs</h2>
+      </div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">01</div>
+      <div class="project-name">Semi-Annual IT Asset Audit</div>
+      <span class="project-output-label">Audit & Compliance</span>
+      <p class="project-desc">Conducted the semi-annual audit of IT assets, ensuring that all equipment records matched the physical inventory. Verified asset compliance with firm standards and documented discrepancies for corrective action. Contributed to updating the asset management tracker, improving accuracy and reliability of audit data.</p>
+      <p class="project-output"><strong>Output:</strong> Detailed audit reports and updated asset records that supported compliance and accountability across the organization.</p>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">02</div>
+      <div class="project-name">Asset Validation in Storage</div>
+      <span class="project-output-label">Asset Management</span>
+      <p class="project-desc">Conducted physical validation of IT assets stored in inventory, confirming the presence, condition, and proper labeling of equipment. Assisted in organizing and categorizing devices for easier retrieval and monitoring. Supported the reconciliation of storage records with the central asset database.</p>
+      <p class="project-output"><strong>Output:</strong> Validation logs, updated storage records, and improved asset organization for operational efficiency.</p>
+    </div>
+
+    <div class="nda-note reveal">
+      Due to the Non-Disclosure Agreement (NDA) with PwC BSP, screenshots or direct samples of the audit and validation outputs cannot be included in this report.
+    </div>
+  </div>
+</section>
+
+<!-- ══ REFLECTIONS ══ -->
+<div class="divider"></div>
+<section id="reflections">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-eyebrow">06 — Reflections</div>
+        <h2 class="section-title">Learning Reflections</h2>
+      </div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="reflections-grid">
+      <div class="reflection-card reveal">
+        <div class="reflection-type">Key Insights</div>
+        <ul class="reflection-list">
+          <li>Accuracy and consistency in IT audits are critical — small discrepancies in asset records can affect compliance and decision-making.</li>
+          <li>Proper documentation and lifecycle tracking are crucial for organizational efficiency.</li>
+          <li>Systematic troubleshooting and preventive maintenance reduce downtime significantly.</li>
+          <li>Timely technical support directly impacts team productivity.</li>
+        </ul>
+      </div>
+      <div class="reflection-card reveal">
+        <div class="reflection-type">Challenges</div>
+        <ul class="reflection-list">
+          <li>Managing large volumes of asset data during audits was demanding, requiring patience and extreme attention to detail.</li>
+          <li>Some hardware issues were complex and required multiple diagnostic approaches before reaching a solution.</li>
+          <li>Balancing audit tasks, asset validation, and technical support simultaneously tested time management skills.</li>
+        </ul>
+      </div>
+      <div class="reflection-card reveal">
+        <div class="reflection-type">Problem-Solving</div>
+        <ul class="reflection-list">
+          <li>Developed a structured workflow for audits, breaking tasks into smaller steps for thorough validation.</li>
+          <li>Applied both built-in tools and third-party utilities for hardware diagnostics, cross-checking results.</li>
+          <li>Learned to triage urgent technical support requests while documenting others for follow-up.</li>
+          <li>Collaboration with supervisors and co-interns helped refine solutions and build confidence.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ JOURNAL ══ -->
+<div class="divider"></div>
+<section id="journal">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-eyebrow">07 — Learning Journal</div>
+        <h2 class="section-title">Weekly Learning Journals</h2>
+      </div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="journal-timeline">
+      <div class="journal-entry">
+        <div class="journal-dot"></div>
+        <div class="journal-week">Week 1 · Jan 15, 2026</div>
+        <div class="journal-body">
+          <div class="journal-activities">Onboarding, orientation, introduction to managers and team members, learning workplace rules and safety guidelines.</div>
+          <div class="journal-lesson"><strong>Lesson:</strong> Understood company background, mission, vision, and professional conduct expectations.</div>
+        </div>
+      </div>
+      <div class="journal-entry">
+        <div class="journal-dot"></div>
+        <div class="journal-week">Week 2 · Jan 19–21, 2026</div>
+        <div class="journal-body">
+          <div class="journal-activities">Completed e-learning modules, learned OTT intern responsibilities, managed materials inventory, door access setup, and software installation. Conducted IT asset inventory and technical training.</div>
+          <div class="journal-lesson"><strong>Lesson:</strong> Gained knowledge of intern responsibilities and practical exposure to inventory and access management.</div>
+        </div>
+      </div>
+      <div class="journal-entry">
+        <div class="journal-dot"></div>
+        <div class="journal-week">Week 3 · Jan 26–30, 2026</div>
+        <div class="journal-body">
+          <div class="journal-activities">Occupational Safety and Health training, IT asset inventory at The Hub and Ortigas, laptop diagnostics, newsletter creation, risk and quality briefing, laptop deployment assistance, and BDS Townhall participation.</div>
+          <div class="journal-lesson"><strong>Lesson:</strong> Developed awareness of workplace safety, risk management, and ethical standards. Strengthened technical support and communication skills.</div>
+        </div>
+      </div>
+      <div class="journal-entry">
+        <div class="journal-dot"></div>
+        <div class="journal-week">Week 4 · Feb 2–6, 2026</div>
+        <div class="journal-body">
+          <div class="journal-activities">IT asset inventory updates, new hire monitoring, email routing, newsletter creation, laptop reimaging, technical support, asset turnover updates, tracker updates, and MsForms finalization for IT audit.</div>
+          <div class="journal-lesson"><strong>Lesson:</strong> Improved technical troubleshooting, documentation, and coordination skills.</div>
+        </div>
+      </div>
+      <div class="journal-entry">
+        <div class="journal-dot"></div>
+        <div class="journal-week">Week 5 · Feb 9–11, 2026</div>
+        <div class="journal-body">
+          <div class="journal-activities">Laptop deployment, physical IT asset audits at The Hub and Ortigas, laptop diagnostics, and access card management.</div>
+          <div class="journal-lesson"><strong>Lesson:</strong> Strengthened audit accuracy and technical support capabilities.</div>
+        </div>
+      </div>
+      <div class="journal-entry">
+        <div class="journal-dot"></div>
+        <div class="journal-week">Week 6 · Feb 16–20, 2026</div>
+        <div class="journal-body">
+          <div class="journal-activities">Conducted multiple IT asset audits, created newsletters, maintained audit monitoring files, updated trackers, and provided technical support including printer installation and on-site support.</div>
+          <div class="journal-lesson"><strong>Lesson:</strong> Enhanced multitasking and reporting skills; learned to balance audit and support responsibilities.</div>
+        </div>
+      </div>
+      <div class="journal-entry">
+        <div class="journal-dot"></div>
+        <div class="journal-week">Week 7 · Feb 23–27, 2026</div>
+        <div class="journal-body">
+          <div class="journal-activities">Completed IT asset audits, updated monitoring sheets and inventory records, performed laptop diagnostics, validated assets, and assisted with laptop turnover.</div>
+          <div class="journal-lesson"><strong>Lesson:</strong> Gained deeper experience in asset validation and technical troubleshooting.</div>
+        </div>
+      </div>
+      <div class="journal-entry">
+        <div class="journal-dot"></div>
+        <div class="journal-week">Week 8 · Mar 2–6, 2026</div>
+        <div class="journal-body">
+          <div class="journal-activities">Conducted IT asset audits, released monitoring updates, issued reminders, reimaged laptops, performed diagnostics, and updated inventory records.</div>
+          <div class="journal-lesson"><strong>Lesson:</strong> Learned the importance of consistent monitoring and proactive communication in audit compliance.</div>
+        </div>
+      </div>
+      <div class="journal-entry">
+        <div class="journal-dot"></div>
+        <div class="journal-week">Week 9 · Mar 9–13, 2026</div>
+        <div class="journal-body">
+          <div class="journal-activities">Continued IT asset audits, compiled monitoring updates, circulated reminders, refreshed asset trackers, and finalized audit reports.</div>
+          <div class="journal-lesson"><strong>Lesson:</strong> Strengthened attention to detail and accountability; improved coordination with teams to meet compliance deadlines.</div>
+        </div>
+      </div>
+      <div class="journal-entry">
+        <div class="journal-dot"></div>
+        <div class="journal-week">Week 10 · Mar 16–19, 2026</div>
+        <div class="journal-body">
+          <div class="journal-activities">Conducted IT asset audits, released monitoring updates, sent reminders, and updated IT asset management tracker. Performed asset validation in storage and provided technical support including laptop diagnostics and hardware support.</div>
+          <div class="journal-lesson"><strong>Lesson:</strong> Strengthened skills in balancing audit compliance with technical support. Learned how asset validation ensures accountability.</div>
+        </div>
+      </div>
+      <div class="journal-entry">
+        <div class="journal-dot"></div>
+        <div class="journal-week">Week 11 · Mar 23–27, 2026</div>
+        <div class="journal-body">
+          <div class="journal-activities">Updated asset management tracker, validated physical assets in storage, performed laptop diagnostics, and reimaged laptops for deployment.</div>
+          <div class="journal-lesson"><strong>Lesson:</strong> Gained deeper understanding of asset lifecycle management. Learned how reimaging and diagnostics prepare laptops for reliable use.</div>
+        </div>
+      </div>
+      <div class="journal-entry">
+        <div class="journal-dot"></div>
+        <div class="journal-week">Week 12 · Mar 30–Apr 1, 2026</div>
+        <div class="journal-body">
+          <div class="journal-activities">Continued tracker updates, asset validation, laptop diagnostics, and reimaging. Provided technical support to users.</div>
+          <div class="journal-lesson"><strong>Lesson:</strong> Improved troubleshooting skills and recognized the importance of accurate tracker updates in maintaining system reliability.</div>
+        </div>
+      </div>
+      <div class="journal-entry">
+        <div class="journal-dot"></div>
+        <div class="journal-week">Week 13 · Apr 6–10, 2026</div>
+        <div class="journal-body">
+          <div class="journal-activities">Updated multiple trackers (resigned, new hires, turnover), validated assets, listed spare laptops and accessories, and performed laptop diagnostics and reimaging.</div>
+          <div class="journal-lesson"><strong>Lesson:</strong> Learned how different trackers interconnect to support asset turnover and deployment. Strengthened organizational skills in managing spare equipment.</div>
+        </div>
+      </div>
+      <div class="journal-entry">
+        <div class="journal-dot"></div>
+        <div class="journal-week">Week 14 · Apr 13–17, 2026</div>
+        <div class="journal-body">
+          <div class="journal-activities">Updated ITAM trackers, validated new data, diagnosed laptops, reimaged spare laptops, and attended the BDS Townhall and General Assembly.</div>
+          <div class="journal-lesson"><strong>Lesson:</strong> Gained insight into organizational communication through townhall participation. Consistent tracker updates and diagnostics ensure readiness of IT assets.</div>
+        </div>
+      </div>
+      <div class="journal-entry">
+        <div class="journal-dot"></div>
+        <div class="journal-week">Week 15 · Apr 20–24, 2026</div>
+        <div class="journal-body">
+          <div class="journal-activities">Validated physical assets in storage, diagnosed laptops for transfer, updated trackers, reimaged laptops, processed offboarding requirements, and attended the IFS Townhall.</div>
+          <div class="journal-lesson"><strong>Lesson:</strong> Understood the importance of proper processes in IT asset management. Diagnostics and reimaging prepare laptops for retirement or redeployment.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SKILLS ══ -->
+<div class="divider"></div>
+<section id="skills">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-eyebrow">08 — Skills</div>
+        <h2 class="section-title">Skills Acquired</h2>
+      </div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="skills-grid">
+      <div class="reveal">
+        <div class="skills-col-title">Technical Skills</div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">IT Audit & Asset Management</span><span class="skill-pct">92%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="92"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Laptop Hardware Diagnostics & Repair</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Technical Support</span><span class="skill-pct">88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Documentation & Reporting</span><span class="skill-pct">90%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Windows OS & Reimaging</span><span class="skill-pct">87%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="87"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Web Development (React & PHP)</span><span class="skill-pct">80%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="skills-col-title">Soft Skills</div>
+        <div class="soft-skills-list">
+          <div class="soft-skill">
+            <div class="soft-skill-icon">🔎</div>
+            <div><div class="soft-skill-name">Attention to Detail</div><div class="soft-skill-desc">Ensured accuracy in audits and validation, minimizing discrepancies across large datasets.</div></div>
+          </div>
+          <div class="soft-skill">
+            <div class="soft-skill-icon">🧩</div>
+            <div><div class="soft-skill-name">Problem-Solving</div><div class="soft-skill-desc">Applied systematic troubleshooting methods for complex hardware and audit challenges.</div></div>
+          </div>
+          <div class="soft-skill">
+            <div class="soft-skill-icon">⏱️</div>
+            <div><div class="soft-skill-name">Time Management</div><div class="soft-skill-desc">Balanced audits, validation, and technical support under tight schedules simultaneously.</div></div>
+          </div>
+          <div class="soft-skill">
+            <div class="soft-skill-icon">🤝</div>
+            <div><div class="soft-skill-name">Collaboration & Communication</div><div class="soft-skill-desc">Coordinated with supervisors and peers, issued reminders, and prepared newsletters.</div></div>
+          </div>
+          <div class="soft-skill">
+            <div class="soft-skill-icon">🔄</div>
+            <div><div class="soft-skill-name">Adaptability</div><div class="soft-skill-desc">Adjusted seamlessly to diverse tasks ranging from technical diagnostics to documentation.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DOCUMENTATION ══ -->
+<div class="divider"></div>
+<section id="documentation">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-eyebrow">09 — Documentation</div>
+        <h2 class="section-title">Internship Documentation</h2>
+      </div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="docs-grid reveal">
+      <div class="doc-card"><div class="doc-icon">🎉</div><div><div class="doc-name">PwC BSP Interns Gathering</div><div class="doc-type">Event Documentation</div></div></div>
+      <div class="doc-card"><div class="doc-icon">🏛️</div><div><div class="doc-name">BDS Q2 Townhall & General Assembly</div><div class="doc-type">Organizational Event</div></div></div>
+      <div class="doc-card"><div class="doc-icon">📜</div><div><div class="doc-name">Business Relationships Refresher</div><div class="doc-type">Independence Training</div></div></div>
+      <div class="doc-card"><div class="doc-icon">📋</div><div><div class="doc-name">Applying PCAOB Standards: Independence Basics V2</div><div class="doc-type">Compliance Training</div></div></div>
+      <div class="doc-card"><div class="doc-icon">🌐</div><div><div class="doc-name">Living Our Brand – English (UK)</div><div class="doc-type">Brand Training</div></div></div>
+      <div class="doc-card"><div class="doc-icon">🔐</div><div><div class="doc-name">Personal Independence Refresher</div><div class="doc-type">Independence Training</div></div></div>
+      <div class="doc-card"><div class="doc-icon">⚖️</div><div><div class="doc-name">Non-Assurance Services Refresher</div><div class="doc-type">Independence Training</div></div></div>
+      <div class="doc-card"><div class="doc-icon">🧭</div><div><div class="doc-name">FY26 Annual Ethics & Compliance Training</div><div class="doc-type">Ethics & Compliance</div></div></div>
+      <div class="doc-card"><div class="doc-icon">🛡️</div><div><div class="doc-name">FY25 & FY26 Be Smart. Be Secure.</div><div class="doc-type">Cybersecurity Awareness</div></div></div>
+      <div class="doc-card"><div class="doc-icon">💻</div><div><div class="doc-name">Technical Training for Interns, PBEs & Fixed-Terms</div><div class="doc-type">Technical Training</div></div></div>
+      <div class="doc-card"><div class="doc-icon">✅</div><div><div class="doc-name">Ethics & Compliance New Hire Training (Part 2/2)</div><div class="doc-type">Compliance Training</div></div></div>
+      <div class="doc-card"><div class="doc-icon">🏆</div><div><div class="doc-name">Certificate of Completion</div><div class="doc-type">Official Certificate</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONCLUSION ══ -->
+<div class="divider"></div>
+<section id="conclusion">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-eyebrow">10 — Conclusion</div>
+        <h2 class="section-title">Internship Conclusion</h2>
+      </div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="conclusion-body">
+      <div class="conclusion-quote reveal">
+        <p>This internship not only enhanced my technical confidence but also gave me a clearer understanding of how IT systems support organizational efficiency and accountability.</p>
+      </div>
+      <p class="reveal">My internship at PwC Business Services Philippine Office Technology and Transformation Department provided me with valuable hands-on experience in IT audit, asset management, and laptop hardware diagnostics. Over the course of three and a half months, I was able to apply my academic knowledge to real-world infrastructure tasks, strengthening my technical expertise while also developing professional skills such as documentation, collaboration, and problem-solving.</p>
+      <p class="reveal">Beyond technical growth, this internship honed my soft skills, particularly in documentation, collaboration, and problem-solving. I learned how to manage multiple responsibilities such as audits, asset validation, and technical support while maintaining accuracy and efficiency. Participating in organizational activities, orientations, and townhalls further enhanced my understanding of workplace culture, ethics, and communication.</p>
+      <p class="reveal">This experience reinforced my career goal of pursuing a role in IT infrastructure and audit, as I gained firsthand exposure to compliance processes, asset lifecycle management, and technical support operations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FUTURE PLANS ══ -->
+<div class="divider"></div>
+<section id="future">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-eyebrow">11 — Future Plans</div>
+        <h2 class="section-title">Future Plans & Next Steps</h2>
+      </div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="future-grid">
+      <div class="future-card reveal">
+        <div class="future-card-icon">🚀</div>
+        <div class="future-card-title">Next Career Steps</div>
+        <ul class="future-list">
+          <li>Pursue professional certifications in Networking, Cybersecurity, and IT Audit to strengthen technical credibility.</li>
+          <li>Apply for entry-level roles in IT infrastructure, audit, or technical support, leveraging skills acquired during the internship.</li>
+          <li>Continue developing expertise in asset management systems and hardware diagnostics, aligning with long-term goals of becoming an IT infrastructure specialist.</li>
+        </ul>
+        <div class="certs-row">
+          <span class="cert-badge">CompTIA Network+</span>
+          <span class="cert-badge">CompTIA Security+</span>
+          <span class="cert-badge">CISA</span>
+        </div>
+      </div>
+      <div class="future-card reveal">
+        <div class="future-card-icon">💡</div>
+        <div class="future-card-title">Suggestions for the Internship Program</div>
+        <ul class="future-list">
+          <li>Continue integrating structured technical trainings to help interns build confidence early in their internship journey.</li>
+          <li>Provide more opportunities for interns to collaborate across departments, broadening exposure to diverse IT functions.</li>
+          <li>Enhance documentation practices by introducing standardized reporting templates, ensuring consistency and efficiency in audit and validation outputs.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<div class="divider"></div>
+<section id="contact">
+  <div class="section-wrap">
+    <div class="contact-inner">
+      <div class="contact-left reveal">
+        <h2 class="contact-heading">Let's get<br/><em style="font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--gold)">in touch</em></h2>
+        <p class="contact-sub">Feel free to reach out for opportunities, collaborations, or just to connect.</p>
+        <div class="contact-links">
+          <a href="mailto:randz_andrea_decastro@dlsl.edu.ph" class="contact-link">
+            <div class="contact-link-icon">✉️</div>
+            randz_andrea_decastro@dlsl.edu.ph
+          </a>
+          <a href="tel:09466144422" class="contact-link">
+            <div class="contact-link-icon">📱</div>
+            09466144422
+          </a>
+          <a href="#" class="contact-link">
+            <div class="contact-link-icon">🏢</div>
+            PwC Business Services Philippines
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-right reveal">
+        <div class="contact-card">
+          <div class="contact-card-label">Portfolio Card</div>
+          <div class="contact-card-name">Randz Andrea De Castro</div>
+          <div class="contact-card-role">IT Intern · BS Information Technology</div>
+          <div class="contact-card-divider"></div>
+          <div class="contact-card-detail"><span>🏢</span><span>PwC Business Services PH — OTT Department</span></div>
+          <div class="contact-card-detail"><span>🎓</span><span>De La Salle Lipa · BS Information Technology</span></div>
+          <div class="contact-card-detail"><span>📅</span><span>Internship: Jan 15 – Apr 24, 2026</span></div>
+          <div class="contact-card-detail"><span>🎯</span><span>Aspiring IT Infrastructure Specialist</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Built with care · <span>Randz Andrea De Castro</span> · IT Practicum Portfolio 2026
+</footer>
+
+<script>
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal, .journal-entry');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        // Animate skill bars when visible
+        e.target.querySelectorAll('.skill-fill').forEach(bar => {
+          bar.style.width = bar.dataset.width + '%';
+        });
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  revealEls.forEach(el => observer.observe(el));
+
+  // Also trigger skill bars if already in view
+  document.querySelectorAll('.skill-fill').forEach(bar => {
+    const rect = bar.getBoundingClientRect();
+    if (rect.top < window.innerHeight) {
+      bar.style.width = bar.dataset.width + '%';
+    }
+  });
+
+  // Stagger journal entries
+  document.querySelectorAll('.journal-entry').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.04) + 's';
+  });
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    nav.style.background = window.scrollY > 40
+      ? 'rgba(8,10,16,0.97)'
+      : 'rgba(8,10,16,0.85)';
+  });
+</script>
+</body>
+</html>
